@@ -1,0 +1,9 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if subject is not null %}
+        Ciao, {{ subject }}!
+    {% else %}
+        Questo è il nostro servizio web
+    {% endif %}
+{% endblock %}
