@@ -13,9 +13,10 @@ class AboutController extends AbstractController
     #[Route('/about/{subject}', name: 'about')]
     public function index(?string $subject = null): Response
     {
-        if($subject !== null) {
+        if (null !== $subject) {
             return new Response("<html><body>Ciao $subject</body></html>");
         }
+
         return new Response('<html><body>About</body></html>');
     }
 }
