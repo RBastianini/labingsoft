@@ -17,3 +17,11 @@ richiedere aggiustamenti in questo caso.)
 6. Scaricare Symfony utilizzando uno dei comandi che si trova sul loro sito https://symfony.com/download
 7. Usare il comando git config --global user.email "example@example.com"
 8. Sempre dentro il container utilizzare il comando "symfony new --no-git --version=^6.4
+
+**Collegare il DB a Php storm**
+1. Da phpstorm, andare su Database -> New -> Datasource, selezionare Postgress
+2. Compilare i campi seguenti con i valori specificati
+	- user = "dbuser"
+	- password = "segreta"
+	- database = "app" <-- importante!
+3. eseguire "Test connection" ed applicare le modifiche
