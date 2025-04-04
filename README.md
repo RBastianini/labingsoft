@@ -19,7 +19,7 @@ richiedere aggiustamenti in questo caso.)
 8. Sempre dentro il container utilizzare il comando "symfony new --no-git --version=^6.4
 
 **Collegare il DB a PHPStorm**
-1. Da phpstorm, andare su Database -> New -> Datasource, selezionare Postgress
+1. Da phpstorm, andare su Database -> New -> Datasource, selezionare Postgres
 2. Compilare i campi seguenti con i valori specificati
 	- user = "dbuser"
 	- password = "segreta"
