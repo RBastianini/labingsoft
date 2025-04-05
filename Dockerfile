@@ -17,7 +17,8 @@ ENV UID=$UID
 ENV GUID=$GUID
 # Hack: Change www-data uid/group to allow apache to read files we will create.
 # Change www-data home folder to avoid placing config / cache files in /var/www.
-RUN sed -ri "s!^www-data:x:33:33:www-data:/var/www!www-data:x:$UID:$GUID:www-data:/home/www-data!" /etc/passwd
+#RUN sed -ri "s!^www-data:x:33:33:www-data:/var/www!www-data:x:$UID:$GUID:www-data:/home/www-data!" /etc/passwd
+RUN deluser www-data && groupadd -g $GUID www-data && useradd -s /bin/bash -m -d /home/www-data -g $GUID -r -u $UID www-data
 
 # Change document root to /var/www/public
 RUN sed -ri -e 's!/var/www/html!/var/www/files/public!g' /etc/apache2/sites-available/*.conf

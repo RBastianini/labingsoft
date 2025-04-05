@@ -1,5 +1,5 @@
 .env:
-	echo "UID=$$(id -u)\nGUID=$$(id -g)" > .env
+	bash -c 'echo -e "UID=$$(id -u)\nGUID=$$(id -g)"' > .env
 start: .env
 	docker compose up -d
 stop:
