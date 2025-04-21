@@ -16,10 +16,18 @@ class TemperatureSpanDTOForm extends AbstractType
     {
         $builder->add(
             'minimumCelsiusTemperature',
-            NumberType::class
+            NumberType::class,
+            [
+                'label' => 'minimum_celsius_temperature',
+                'required' => false,
+            ]
         )->add(
             'maximumCelsiusTemperature',
-            NumberType::class
+            NumberType::class,
+            [
+                'label' => 'maximum_celsius_temperature',
+                'required' => false,
+            ]
         );
     }
 

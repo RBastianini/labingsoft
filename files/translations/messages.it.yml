@@ -1,11 +1,30 @@
 about.description: Questa è la nostra applicazione web.
 all_locations: Tutte le città
+choose_one: Selezionare un valore
+country: Stato
+day: Giorno
 greeting_%subject%: Ciao %subject%!
-weather_forecast_for_%city_name%_%country_code%: Previsioni del tempo per %city_name% (%country_code%)
-weather_forecasts.here_are_the_weather_forecasts_for_%city_name%_%country_code%: 'Ecco le previsioni del tempo per %city_name% (%country_code%):'
+humidity_percentage: Umidità (%)
+latitude: Latitudine
+location: Luogo
+longitude: Longitudine
+name: Nome
+maximum_celsius_temperature: Temperatura massima (°C)
+minimum_celsius_temperature: Temperatura minima (°C)
 navigation.home: Pagina principale
 navigation.about: Informazioni su
 navigation.forecast: Previsioni
 no_results: Nessun risultato
 page_%pageNumber%: Pagina %pageNumber%
+save: Salva
+short_weather_description: Previsione breve
 view_forecasts: Visualizza previsioni
+weather_description.CLOUDY: Nuvoloso
+weather_description.PARTLY_CLOUDY: Parzialmente nuvoloso
+weather_description.RAINY: Piovoso
+weather_description.SNOWY: Nevoso
+weather_description.STORMY: Tempestoso
+weather_description.SUNNY: Soleggiato
+weather_forecast_for_%city_name%_%country_code%: Previsioni del tempo per %city_name% (%country_code%)
+weather_forecasts.here_are_the_weather_forecasts_for_%city_name%_%country_code%: 'Ecco le previsioni del tempo per %city_name% (%country_code%):'
+wind_speed_kmh: Velocità del vento (Km/h)

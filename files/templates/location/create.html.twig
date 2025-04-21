@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}{{ 'create_location' | trans }}{% endblock %}
+
+{% block content %}
+    {{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.name) }}
+    {{ form_row(form.country) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.latitude) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.longitude) }}
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+{% endblock %}

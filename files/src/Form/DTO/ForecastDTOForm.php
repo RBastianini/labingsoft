@@ -11,6 +11,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -31,6 +32,7 @@ class ForecastDTOForm extends AbstractType
             'location',
             EntityType::class,
             [
+                'label' => 'location',
                 'class' => Location::class,
                 'choice_label' => fn (Location $location) => "{$location->getName()} ({$location->getCountry()})",
             ]
@@ -38,6 +40,7 @@ class ForecastDTOForm extends AbstractType
             'day',
             DateType::class,
             [
+                'label' => 'day',
                 'input' => 'datetime_immutable',
                 'widget' => 'choice',
             ]
@@ -47,14 +50,33 @@ class ForecastDTOForm extends AbstractType
             [
                 'choices' => ShortWeatherDescription::cases(),
                 'choice_label' => fn (ShortWeatherDescription $shortWeatherDescription) => $this->translator->trans('weather_description.'.$shortWeatherDescription->name),
+                'label' => 'short_weather_description',
             ]
-        )->add('windSpeedKmh')
-            ->add('humidityPercentage')
-            ->add('temperatureSpan', TemperatureSpanDTOForm::class)
-            ->add(
-                'submit',
-                SubmitType::class
-            );
+        )->add(
+            'windSpeedKmh',
+            NumberType::class,
+            [
+                'label' => 'wind_speed_kmh',
+                'required' => false,
+            ],
+        )->add(
+            'humidityPercentage',
+            NumberType::class,
+            [
+                'label' => 'humidity_percentage',
+                'required' => false,
+            ],
+        )->add(
+            'temperatureSpan',
+            TemperatureSpanDTOForm::class,
+            [
+                'label' => false,
+            ],
+        )->add(
+            'submit',
+            SubmitType::class,
+            ['label' => 'save']
+        );
     }
 
     public function configureOptions(OptionsResolver $resolver): void
