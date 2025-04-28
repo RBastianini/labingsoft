@@ -4,8 +4,14 @@ declare(strict_types=1);
 
 namespace App\DTO;
 
+use App\Validator as MyAssert;
 use Symfony\Component\Validator\Constraints as Assert;
 
+#[MyAssert\BothPropertiesPresent(
+    property1: 'latitude',
+    property2: 'longitude',
+    message: 'both_coordinates_must_be_defined_or_none_defined'
+)]
 class LocationDTO
 {
     #[Assert\NotBlank]
