@@ -4,11 +4,10 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
-use App\DTO\LocationDTO;
-use App\Entity\Location;
-use App\Form\DTO\LocationDTOForm;
+use App\Form\Intent\CreateLocationIntentForm;
+use App\Intent\CreateLocationIntent;
+use App\IntentHandler\CreateLocationHandler;
 use App\Repository\LocationRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,18 +18,14 @@ use Symfony\Component\Routing\Attribute\Route;
 class LocationController extends AbstractController
 {
     #[Route('/create', name: 'create_location')]
-    public function create(Request $request, EntityManagerInterface $entityManager): Response
+    public function create(Request $request, CreateLocationHandler $createLocationHandler): Response
     {
-        $locationDTO = new LocationDTO();
-        $form = $this->createForm(LocationDTOForm::class, $locationDTO);
+        $createLocationIntent = new CreateLocationIntent();
+        $form = $this->createForm(CreateLocationIntentForm::class, $createLocationIntent);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $location = new Location($locationDTO->name, $locationDTO->country);
-            $location->setLatitude($locationDTO->latitude);
-            $location->setLongitude($locationDTO->longitude);
-            $entityManager->persist($location);
-            $entityManager->flush();
+            $location = $createLocationHandler->handle($createLocationIntent);
 
             return $this->redirectToRoute(
                 'view_weather_forecasts_by_city',
