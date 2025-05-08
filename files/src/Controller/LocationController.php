@@ -44,7 +44,7 @@ class LocationController extends AbstractController
         if ($page <= 0) {
             throw $this->createNotFoundException('Invalid page');
         }
-        $pageSize = 5;
+        $pageSize = $this->getParameter('page_size');
         $locations = $locationRepository->findPaginated($page, $pageSize);
 
         return $this->render(
