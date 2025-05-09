@@ -367,3 +367,74 @@ Suggerimento: anche se l'entità ha la relazione `Forecasts`, ignorate questa pr
 
 La [Branch "lesson-six-end"](https://github.com/RBastianini/labingsoft/tree/lesson-six-end) contiene lo stato del
 repository alla fine della lezione.
+
+# Lezione 7 - Dependency Injection Container e Unit Test
+La lezione è iniziata con l'illustrazione di una possibile soluzione per l'esercizio lasciato dirante la lezione
+precedente.
+Per risolvere l'esercizio è stato installato il pacchetto symfony/intl tramite il comando
+```shell
+# Dall'interno del container
+$ composer require intl
+```
+per poter utilizzare il **FormType** `CountryType`.
+In aggiunta, è stato mostrato come creare dei vincoli di validazione (e i relativi validatori) personalizzati.
+Infine è stato mostrato un modo di organizzare il codice tramite **Intent** (o **Command**) e **IntentHandler**
+(o **CommandHandler**), che si è rivelato utile sia per rimuovere i `SubmitType` dalle varie classi **___DTOForm** che
+abbiamo definito e spostarli in dei form dedicati, sia per organizzare il codice necessario al processamento del form,
+separandolo dal codice necessario per creare il form e renderizzare la view, che è rimasto invece nel controller.
+La lezione è proseguita illustrando la differenza tra "*classi che contengono informazioni*" come i **modelli**,
+**ValueObject** o **DTO** e le classi che "*sanno fare qualcosa*" come i **Form**, **Controller** e **IntentHandler**,
+che abbiamo chiamato **Servizi**. Abbiamo parlato del **Dependency Injection Container** di Symfony e di come è
+configurato. Abbiamo visto quali servizi sono definiti tramite il comando
+```shell
+# Dall'interno del container
+$ bin/console debug:autowiring --all
+```
+e usato questa informazione per correggere la configurazione affinché non fossero aggiunte al container le "*classi che
+contengono informazioni*".
+
+Oltre ai servizi abbiamo visto cosa sono e come definire i **Parameters** nel container; come visualizzare quelli
+esistenti con il comando
+```shell
+# Dall'interno del container
+$ bin/console debug:container --parameters
+```
+e come fare a recuperare il valore di un parametro dai controller.
+Infine, abbiamo visto il comando
+```shell
+# Dall'interno del container
+$ bin/console debug:dotenv
+```
+per elencare le variabili d'ambiente definite e visualizzare il loro contenuto.
+
+Siamo quindi passati all'argomento testing, iniziato da una descrizione dei principali tipi di test automatici del
+codice: **Unit test**, **Integration test** e **End to end test**. Abbiamo parlato della piramide del testing e siamo
+poi passati a scrivere dei test unitari, iniziando dall'installazione di **PHPUnit** tramite
+```shell
+# Dall'interno del container
+$ composer require --dev symfony/test-pack
+```
+.
+Abbiamo quindi creato un primo test unitario, vedendo l'utilizzo dell'annotazione `@test` per marcare i metodi di test,
+l'uso delle asserzioni e l'uso dell'annotazione `@dataProvider` per rendere i test parametrici.
+
+È stato anche utilizzato il comando
+```shell
+# Dall'interno del container
+$ vendor/bin/phpunit
+```
+per eseguire tutti i test presenti.
+
+### Da fare per casa
+Utilizzando la struttura di **Intent** e **IntentHandler** fornita a lezione, creare una action, form, intent e intent
+handler per modificare una **Location** esistente.
+
+### Riferimenti
+- https://symfony.com/doc/6.4/validation/custom_constraint.html
+- https://symfony.com/doc/6.4/service_container.html
+- https://docs.phpunit.de/en/10.5/writing-tests-for-phpunit.html
+- https://martinfowler.com/articles/practical-test-pyramid.html
+
+
+La [Branch "lesson-seven-end"](https://github.com/RBastianini/labingsoft/tree/lesson-seven-end) contiene lo stato del
+repository alla fine della lezione.

@@ -14,7 +14,11 @@ class TemperatureSpan
 
     public function __construct(int $minimumCelsiusTemperature, int $maximumCelsiusTemperature)
     {
-        Assertion::lessOrEqualThan($maximumCelsiusTemperature, $maximumCelsiusTemperature);
+        Assertion::lessOrEqualThan(
+            $minimumCelsiusTemperature,
+            $maximumCelsiusTemperature,
+            'Minimum celsius temperature must be less or equal than maximum celsius temperature'
+        );
         $this->minimumCelsiusTemperature = $minimumCelsiusTemperature;
         $this->maximumCelsiusTemperature = $maximumCelsiusTemperature;
     }
