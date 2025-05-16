@@ -22,6 +22,7 @@ class TemperatureSpanTest extends TestCase
 
     /**
      * @test
+     *
      * @dataProvider provider_values_in_construction_2
      */
     public function it_returns_the_values_passed_in_construction2(int $minTemp, int $maxTemp): void
@@ -32,7 +33,10 @@ class TemperatureSpanTest extends TestCase
         $this->assertSame($maxTemp, $SUT->getMaximumCelsiusTemperature());
     }
 
-    public function provider_values_in_construction_2()
+    /**
+     * @return int[][]
+     */
+    public function provider_values_in_construction_2(): array
     {
         return [
             [0, 10],

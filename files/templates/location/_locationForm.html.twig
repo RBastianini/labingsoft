@@ -1,0 +1,14 @@
+{{ form_start(form) }}
+    {{ form_errors(form) }}
+    {{ form_row(form.locationDTO.name) }}
+    {{ form_row(form.locationDTO.country) }}
+    <div class="row">
+        <div class="col">
+            {{ form_row(form.locationDTO.latitude) }}
+        </div>
+        <div class="col">
+            {{ form_row(form.locationDTO.longitude) }}
+        </div>
+    </div>
+    {{ form_row(form.submit) }}
+{{ form_end(form) }}

@@ -2,6 +2,7 @@ about.description: Questa è la nostra applicazione web.
 all_locations: Tutte le città
 choose_one: Selezionare un valore
 country: Stato
+create_location: Crea luogo
 day: Giorno
 greeting_%subject%: Ciao %subject%!
 humidity_percentage: Umidità (%)
@@ -18,6 +19,8 @@ no_results: Nessun risultato
 page_%pageNumber%: Pagina %pageNumber%
 save: Salva
 short_weather_description: Previsione breve
+update: Modifica
+update_location: Modifica luogo
 view_forecasts: Visualizza previsioni
 weather_description.CLOUDY: Nuvoloso
 weather_description.PARTLY_CLOUDY: Parzialmente nuvoloso

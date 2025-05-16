@@ -14,6 +14,11 @@
                     {{ 'view_forecasts' | trans }} &raquo;
                 </a>
             </div>
+            <div class="col">
+                <a href="{{ path('update_location', {'locationId': location.id}) }}">
+                    {{ 'update_location' | trans }} &raquo;
+                </a>
+            </div>
         </div>
     {% endfor %}
     <div class="row">
