@@ -19,7 +19,7 @@ class BothPropertiesPresentValidator extends ConstraintValidator
         $this->propertyAccessor = $propertyAccessor;
     }
 
-    public function validate(mixed $value, Constraint $constraint)
+    public function validate(mixed $value, Constraint $constraint): void
     {
         if (!$constraint instanceof BothPropertiesPresent) {
             throw new UnexpectedTypeException($constraint, BothPropertiesPresent::class);
