@@ -5,8 +5,11 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use App\Form\Intent\CreateLocationIntentForm;
+use App\Form\Intent\UpdateLocationIntentForm;
 use App\Intent\CreateLocationIntent;
+use App\Intent\UpdateLocationIntent;
 use App\IntentHandler\CreateLocationHandler;
+use App\IntentHandler\UpdateLocationHandler;
 use App\Repository\LocationRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -34,6 +37,29 @@ class LocationController extends AbstractController
         }
 
         return $this->render('location/create.html.twig', ['form' => $form]);
+    }
+
+    #[Route('/{locationId}/update', name: 'update_location')]
+    public function update(int $locationId, Request $request, UpdateLocationHandler $updateLocationHandler, LocationRepository $locationRepository): Response
+    {
+        $locationToUpdate = $locationRepository->find($locationId);
+        if (null === $locationToUpdate) {
+            throw $this->createNotFoundException("Location with id $locationId not found.");
+        }
+        $updateLocationIntent = new UpdateLocationIntent($locationToUpdate);
+        $form = $this->createForm(UpdateLocationIntentForm::class, $updateLocationIntent);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $location = $updateLocationHandler->handle($updateLocationIntent);
+
+            return $this->redirectToRoute(
+                'view_weather_forecasts_by_city',
+                ['cityName' => $location->getName(), 'countryCode' => $location->getCountry()]
+            );
+        }
+
+        return $this->render('location/update.html.twig', ['form' => $form]);
     }
 
     #[Route('/', name: 'view_all_locations')]
