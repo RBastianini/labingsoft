@@ -438,3 +438,51 @@ handler per modificare una **Location** esistente.
 
 La [Branch "lesson-seven-end"](https://github.com/RBastianini/labingsoft/tree/lesson-seven-end) contiene lo stato del
 repository alla fine della lezione.
+
+# Lezione 8 - Test doubles e mock, test di integrazione e debugger
+Contrariamente alle altre volte, questa lezione non abbiamo iniziato vedendo l'esercizio per casa. Il codice è stato
+però aggiunto al repository insieme a questo aggiornamento del diario delle lezioni.
+
+Dopo un breve ripasso degli argomenti dell'ultima lezione, abbiamo ripreso implementando i metodi di test lasciati vuoti
+la settimana precedente. Nel farlo abbiamo parlato della struttura **AAA** (Arrange, Act, Assert) e abbiamo introdotto
+l'argomento **Test Doubles** usando la nomenclatura di `Mockery`, una libreria utilizzata per la creazione di **Mock** e
+**Spie**.
+Abbiamo quindi installato sia la libreria, che il plugin di compatibilità con PHPStan tramite i comandi
+```shell
+# Dall'interno del container
+$ composer require --dev mockery/mockery
+$ composer require --dev phpstan/phpstan-mockery
+```
+Armati di questi nuovi strumenti, abbiamo poi scritto il nostro secondo test unitario, questa volta verificando il
+funzionamento di `BothPropertiesPresentValidator`, sfruttando `Mockery` per creare un **Mock** da usare al posto della
+dipendenza di `BothPropertiesPresentValidator` (`PropertyAccessorInterface`) e una **Spia** al posto di
+`ExecutionContextInterface`. Con l'occasione abbiamo parlato della **Setter Injection**, e rivisto anche la definizione
+di **Constructor injection** che avevamo già trattato durante la lezione precedente, parlando del **Dependency Injection
+Container**. Proseguendo, abbiamo visto come configurare PHPStorm per integrarsi con PHPUnit all'interno del container
+per poter eseguire i test direttamente dall'IDE e abbiamo visto anche come impostare dei **breakpoint** con il
+**debugger** ed eseguire i test in modalità debug.
+Prima di passare all'argomento successivo è stato mostrato come usare **PHPUnit** e **XDEBUG** per ottenere un report di
+test coverage sul codice eseguito, tramite il comando
+```shell
+# Dall'interno del container
+$ XDEBUG_MODE=coverage vendor/bin/phpunit --coverage-html=public/coverage
+```
+che genera un report di code coverage nella cartella `public` del progetto, raggiungibile quindi da
+http://localhost:8080/coverage (nota: questo report è a uso degli sviluppatori, non va aggiunto a nessun commit!).
+In seguito abbiamo scritto il nostro primo test di integrazione per la classe `BothPropertiesPresentValidator` ed è
+stato mostrato l'utilizzo sia del **Dependency Injection Container** che delle **Spie** per verificare il comportamento
+di un gruppo di componenti in un test di integrazione.
+
+### Da fare per casa
+Abbiamo lasciato un paio di metodi di test vuoti a lezione, provare a scrivere le relative implementazioni.
+
+### Riferimenti
+- https://xp123.com/3a-arrange-act-assert/
+- https://docs.mockery.io/en/stable/reference/creating_test_doubles.html#stubs-and-mocks
+- https://docs.mockery.io/en/stable/reference/creating_test_doubles.html#spies
+- https://docs.mockery.io/en/stable/reference/expectations.html
+
+
+
+La [Branch "lesson-eight-end"](https://github.com/RBastianini/labingsoft/tree/lesson-eight-end) contiene lo stato del
+repository alla fine della lezione.
