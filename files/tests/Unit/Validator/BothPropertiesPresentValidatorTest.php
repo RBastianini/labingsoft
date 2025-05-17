@@ -128,7 +128,35 @@ class BothPropertiesPresentValidatorTest extends TestCase
      */
     public function it_passes_validation_if_both_values_are_not_null(): void
     {
-        $this->markTestIncomplete('to do');
+        $property1Name = 'someProperty';
+        $property2Name = 'someOtherProperty';
+        $valueToValidate = new \stdClass();
+
+        // Arrange
+        $this->propertyAccessor->expects('isReadable')
+            ->with($valueToValidate, $property1Name)
+            ->andReturn(true);
+
+        $this->propertyAccessor->expects('isReadable')
+            ->with($valueToValidate, $property2Name)
+            ->andReturn(true);
+
+        $this->propertyAccessor->expects('getValue')
+            ->with($valueToValidate, $property1Name)
+            ->andReturn('something');
+
+        $this->propertyAccessor->expects('getValue')
+            ->with($valueToValidate, $property2Name)
+            ->andReturn('something else');
+
+        // Act
+        $this->SUT->validate(
+            $valueToValidate,
+            new BothPropertiesPresent(property1: $property1Name, property2: $property2Name)
+        );
+
+        // Assert
+        $this->context->shouldNotHaveReceived('buildViolation');
     }
 
     /**
