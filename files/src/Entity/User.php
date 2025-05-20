@@ -24,7 +24,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private string $email;
 
     #[ORM\Column(name: 'password', type: 'string', nullable: false)]
-    /* @phpstan-ignore-next-line doctrine.columnType this value won't be empty by the time it's written to the db  */
+    /* @phpstan-ignore-next-line doctrine.columnType this value won't be empty by the time it's written to the db */
     private ?string $password;
 
     public function __construct(string $email, ?string $encryptedPassword)
