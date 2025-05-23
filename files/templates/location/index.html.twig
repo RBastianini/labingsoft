@@ -14,11 +14,13 @@
                     {{ 'view_forecasts' | trans }} &raquo;
                 </a>
             </div>
-            <div class="col">
-                <a href="{{ path('update_location', {'locationId': location.id}) }}">
-                    {{ 'update_location' | trans }} &raquo;
-                </a>
-            </div>
+            {% if is_granted(constant('\\App\\Entity\\User::ROLE_ADMIN')) %}
+                <div class="col">
+                    <a href="{{ path('update_location', {'locationId': location.id}) }}">
+                        {{ 'update_location' | trans }} &raquo;
+                    </a>
+                </div>
+            {% endif %}
         </div>
     {% endfor %}
     <div class="row">

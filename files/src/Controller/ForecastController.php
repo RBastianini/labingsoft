@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\DTO\ForecastDTO;
 use App\Entity\Forecast;
+use App\Entity\User;
 use App\Form\DTO\ForecastDTOForm;
 use App\ValueObject\TemperatureSpan;
 use Doctrine\ORM\EntityManagerInterface;
@@ -13,10 +14,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/forecasts')]
 class ForecastController extends AbstractController
 {
+    #[IsGranted(User::ROLE_ADMIN)]
     #[Route('/create', name: 'create_forecast')]
     public function create(
         Request $request,

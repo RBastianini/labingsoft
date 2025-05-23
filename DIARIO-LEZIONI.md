@@ -482,7 +482,58 @@ Abbiamo lasciato un paio di metodi di test vuoti a lezione, provare a scrivere l
 - https://docs.mockery.io/en/stable/reference/creating_test_doubles.html#spies
 - https://docs.mockery.io/en/stable/reference/expectations.html
 
-
-
 La [Branch "lesson-eight-end"](https://github.com/RBastianini/labingsoft/tree/lesson-eight-end) contiene lo stato del
+repository alla fine della lezione.
+
+# Lezione 9 - Autenticazione e Autorizzazione
+La lezione è iniziata con la configurazione di **PHPStorm** per poter ricevere le connessioni di **xdebug**
+dall'ambiente locale e mappare correttamente i file dell'ambiente di sviluppo con quelli aperti nel progetto e con un
+breve ripasso del funzionamento del debugger, questa volta però osservando l'applicazione mentre serve richieste HTTP.
+Abbiamo poi proseguito con il definire i processi di **Autenticazione** (**AuthN**) e **Autorizzazione** (**AuthZ**),
+prima di aggiungere l'ultimo pacchetto necessario, tramite il comando
+```shell
+# Dall'interno del container
+$ composer require security
+```
+.
+È stata descritta la struttura del sistema di autenticazione di **Symfony** tramite l'analisi del file
+`config/packages/security.yaml`: come prima cosa abbiamo visto gli **User Provider** ovvero servizi in grado di trovare
+e caricare gli utenti dato un loro identificativo. Abbiamo quindi proseguito creando un'entità `User` per poter salvare
+una lista utenti nel database e poi abbiamo lasciato che fosse Doctrine a generare ed eseguire la migrazione (dopo
+averne controllato la correttezza ed aver applicato ogni modifica necessaria). Abbiamo quindi fatto in modo che la
+classe `User` implementasse le interfacce `UserInterface` e `PasswordAuthenticatedUserInterface`, ripassando il
+principio di **Interface segregation** e ragionando su come la prima interfaccia possa servire anche per metodi di
+autenticazione che non richiedono l'uso della password (come ad esempio [OpenID](https://openid.net)), mentre la seconda
+sia specifica per l'accesso con password.
+Abbiamo quindi configurato lo **User Provider** `entity`, indicandogli che deve utilizzare l'attributo `email` per
+cercare i nostri `User` all'interno del database.
+La classe `User` che abbiamo creato è stata dotata di un solo ruolo `ROLE_ADMIN`, in maniere statica: mentre in
+applicazioni più complesse è possibile salvare l'associazione tra utenti e ruoli nel database, per consentire agli
+amministratori di scegliere in autonomia quali ruoli (e quindi autorizzazioni) concedere a ciascun utente, per il nostro
+caso semplice, ci siamo accontentati di un solo ruolo assegnato staticamente.
+Per proseguire, abbiamo aggiornato le nostre **Fixtures** per aggiungere un utente amministratore al nostro ambiente di
+sviluppo e utilizzato un servizio di tipo `UserPasswordHasherInterface` per trasformare una password in chiaro in una
+protetta da un algoritmo di hashing e salting.
+Siamo tornati quindi alla configurazione del **security bundle** di **Symfony**, questa volta configurando il
+**Firewall**, spiegando come funziona e perché nella nostra applicazione ne abbiamo anche uno chiamato `dev`. Inoltre,
+è stato accennato alla vulnerabilità **Cross-Site Request Forgery** (**CSRF**), quando abbiamo abilitato la protezione
+alla stessa sul form di login. Una volta configurato il nostro firewall `main`, abbiamo creato il **controller** e la
+**view** per servire la pagina di login.
+Non è stato utilizzato un oggetto di tipo **Form**, come invece nelle lezioni precedenti, perché non è il nostro codice
+ad occuparsi della gestione dell'input dell'utente e dell'autenticazione, ma se ne occupa direttamente **Symfony**, di
+conseguenza non è stato necessario neanche gestire il submit del form o la sua validazione.
+Infine, tramite l'uso dell'attributo `#[IsGranted]` e della funzione `is_granted()` in **Twig**, abbiamo provveduto a
+nascondere i riferimenti alle aree riservate agli utenti non autenticati, e a proteggere l'accesso alle pagine private
+da parte degli stessi.
+
+È stato anche brevemente indicato quali sono le operazioni necessarie per preparare il codice al rilascio. 
+### Riferimenti
+ - https://www.jetbrains.com/help/phpstorm/configuring-xdebug.html (Nota: l'estensione di xdebug è già presente e attiva
+ nell'ambiente di sviluppo)
+ - https://symfony.com/doc/6.4/security.html
+ - https://owasp.org/www-community/attacks/csrf
+ - https://symfony.com/doc/6.4/security/csrf.html
+ - https://symfony.com/doc/6.4/deployment.html
+
+La [Branch "lesson-nine-end"](https://github.com/RBastianini/labingsoft/tree/lesson-nine-end) contiene lo stato del
 repository alla fine della lezione.

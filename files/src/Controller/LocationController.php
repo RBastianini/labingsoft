@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Form\Intent\CreateLocationIntentForm;
 use App\Form\Intent\UpdateLocationIntentForm;
 use App\Intent\CreateLocationIntent;
@@ -16,10 +17,12 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/locations')]
 class LocationController extends AbstractController
 {
+    #[IsGranted(User::ROLE_ADMIN)]
     #[Route('/create', name: 'create_location')]
     public function create(Request $request, CreateLocationHandler $createLocationHandler): Response
     {
@@ -39,6 +42,7 @@ class LocationController extends AbstractController
         return $this->render('location/create.html.twig', ['form' => $form]);
     }
 
+    #[IsGranted(User::ROLE_ADMIN)]
     #[Route('/{locationId}/update', name: 'update_location')]
     public function update(int $locationId, Request $request, UpdateLocationHandler $updateLocationHandler, LocationRepository $locationRepository): Response
     {
