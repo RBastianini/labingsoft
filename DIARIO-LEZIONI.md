@@ -537,3 +537,34 @@ da parte degli stessi.
 
 La [Branch "lesson-nine-end"](https://github.com/RBastianini/labingsoft/tree/lesson-nine-end) contiene lo stato del
 repository alla fine della lezione.
+
+# Lezione Bonus - Test funzionale
+Per i curiosi, ho aggiunto un esempio di test funzionale.
+
+È stato modificato il file `.env.test` per utilizzare un diverso valore per la variabile d'ambiente `DATABASE_URL`.
+Un'altra modifica riguarda il file di configurazione `config/packages/framework.yaml`, dove abbiamo disattivato il
+servizio di traduzione delle stringhe, per avere test più stabili nel tempo.
+Notare come il metodo `LocationControllerTest::setUp()` faccia uso della funzione `exec()` per eseguire comandi da
+terminale allo scopo di creare il database di test (se necessario) e riportarlo in una situazione stabile nota (vuoto).
+Notare anche il commento che dice che questo non è il modo più ortodosso di farlo. :)
+
+Il test funzionale utilizza un oggetto di tipo `KernelBrowser` detto "*Client*", che viene utilizzato come astrazione
+del browser. Non si tratta di un browser vero: può solo eseguire richieste HTTP e manipolare la risposta, ma per farlo
+non renderizza la pagina. Questo significa che eventuali interazioni che richiedono di disegnare la pagina (come ad
+esempio determinare se un elemento sia visibile o meno) o che richiedono interazioni complesse con la pagina, non
+possono essere verificate da questo genere di test. Nonostante questo, permette di analizzare la pagina alla ricerca di
+elementi o testo, e di interagire con loro, consentendoci di testare quindi l'intero flusso richiesta / risposta,
+incluso il routing, il rendering dei template e il database. 
+
+In aggiunta al test funzionale, sono state apportate alcune modifiche minori:
+- Aggiunte voci al menù per accedere alle varie pagine, e per fare login / logout;
+- Aggiunta delle risorse javascript di Bootstrap (in modo da far funzionare il menù in modalità telefono / tablet);
+- Aggiunto del testo alla pagina index;
+- Aggiunte alcune voci di traduzione mancanti (non sono certo siano tutte);
+- Aggiunto return type al metodo `User::eraseCredentials()` per rimuovere un warning durante i test.
+
+### Riferimenti
+- https://symfony.com/doc/6.4/testing.html#application-tests
+
+La [Branch "bonus-lesson"](https://github.com/RBastianini/labingsoft/tree/bonus-lesson) contiene lo stato del repository
+dopo le modifiche.

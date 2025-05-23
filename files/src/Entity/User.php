@@ -38,7 +38,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return [self::ROLE_ADMIN];
     }
 
-    public function eraseCredentials()
+    public function eraseCredentials(): void
     {
     }
 

@@ -8,13 +8,18 @@ greeting_%subject%: Ciao %subject%!
 humidity_percentage: Umidità (%)
 latitude: Latitudine
 location: Luogo
+login: Accedi
+logout: Scollegati
 longitude: Longitudine
 name: Nome
 maximum_celsius_temperature: Temperatura massima (°C)
 minimum_celsius_temperature: Temperatura minima (°C)
-navigation.home: Pagina principale
 navigation.about: Informazioni su
-navigation.forecast: Previsioni
+navigation.administrative_actions: Amministrazione
+navigation.create_forecast: Aggiungi previsione
+navigation.create_location: Aggiungi città
+navigation.home: Pagina principale
+navigation.locations: Città
 no_results: Nessun risultato
 page_%pageNumber%: Pagina %pageNumber%
 save: Salva
@@ -30,4 +35,6 @@ weather_description.STORMY: Tempestoso
 weather_description.SUNNY: Soleggiato
 weather_forecast_for_%city_name%_%country_code%: Previsioni del tempo per %city_name% (%country_code%)
 weather_forecasts.here_are_the_weather_forecasts_for_%city_name%_%country_code%: 'Ecco le previsioni del tempo per %city_name% (%country_code%):'
+welcome: Benvenuti
+welcome_page.greeting_text: Benvenuti nell'applicazione di prova del corso di laboratorio di ingegneria del software.
 wind_speed_kmh: Velocità del vento (Km/h)
