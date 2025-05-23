@@ -1,0 +1,24 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %} {{ 'login' | trans }} | {{ parent() }} {% endblock %}
+
+{% block content %}
+    {% if lastError is not null %}
+        <div class="alert alert-danger">{{ lastError.messageKey|trans(lastError.messageData, 'security') }}</div>
+    {% endif %}
+
+    <form action="{{ path('app_login') }}" method="post">
+        <div class="mb-3">
+            <label for="username" class="form-label">Email:</label>
+            <input class="form-control" type="text" id="username" name="_username" value="{{ lastUsername }}" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password:</label>
+            <input class="form-control" type="password" id="password" name="_password" required>
+        </div>
+        <div class="mb-3">
+            <button class="btn btn-primary w-100" type="submit">login</button>
+        </div>
+        <input type="hidden" name="_csrf_token" data-controller="csrf-protection" value="{{ csrf_token('authenticate') }}">
+    </form>
+{% endblock %}

@@ -4,14 +4,28 @@ namespace App\DataFixtures;
 
 use App\Entity\Forecast;
 use App\Entity\Location;
+use App\Entity\User;
 use App\Enum\ShortWeatherDescription;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+    private UserPasswordHasherInterface $userPasswordHasher;
+
+    public function __construct(UserPasswordHasherInterface $userPasswordHasher)
+    {
+        $this->userPasswordHasher = $userPasswordHasher;
+    }
+
     public function load(ObjectManager $manager): void
     {
+        $user = new User('admin@example.com', null);
+        $hashedPassword = $this->userPasswordHasher->hashPassword($user, 'tutta maiuscola senza spazi'); // :)
+        $user->setPassword($hashedPassword);
+        $manager->persist($user);
+
         $rome = new Location('Roma', 'IT');
         $rome->setLatitude('41.90270080');
         $rome->setLongitude('12.49623520');
