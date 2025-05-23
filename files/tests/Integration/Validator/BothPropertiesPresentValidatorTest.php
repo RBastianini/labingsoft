@@ -9,6 +9,7 @@ use App\Validator\BothPropertiesPresentValidator;
 use Mockery\Adapter\Phpunit\MockeryPHPUnitIntegration;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
+use Symfony\Component\Validator\Exception\InvalidArgumentException;
 
 /**
  * @covers \App\Validator\BothPropertiesPresentValidator
@@ -48,6 +49,27 @@ class BothPropertiesPresentValidatorTest extends KernelTestCase
      */
     public function it_throws_an_exception_when_a_property_does_not_exist(): void
     {
-        $this->markTestIncomplete('to do');
+        /** @var BothPropertiesPresentValidator $SUT */
+        $SUT = $this->getContainer()->get(BothPropertiesPresentValidator::class);
+        $context = \Mockery::spy(ExecutionContextInterface::class);
+        $SUT->initialize($context);
+
+        $valueToValidate = new class {
+            public ?int $someProperty = null;
+            public ?int $someOtherProperty = null;
+        };
+
+        $wrongProperty = 'thisPropertyDoesNotExist';
+
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage("Property $wrongProperty is not accessible on passed object.");
+
+        $SUT->validate(
+            $valueToValidate,
+            new BothPropertiesPresent(
+                property1: $wrongProperty,
+                property2: 'someOtherProperty',
+            )
+        );
     }
 }

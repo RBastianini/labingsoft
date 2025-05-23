@@ -6,9 +6,11 @@ namespace App\Intent;
 
 use App\DTO\LocationDTO;
 use App\Entity\Location;
+use Symfony\Component\Validator\Constraints as Assert;
 
 class UpdateLocationIntent
 {
+    #[Assert\Valid()]
     public LocationDTO $locationDTO;
 
     public readonly Location $location;
