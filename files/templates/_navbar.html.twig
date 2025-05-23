@@ -5,15 +5,37 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
+            <ul class="navbar-nav flex-fill">
                 <li class="nav-item">
-                    <a class="nav-link {% if app.current_route == 'home_page' %}active{% endif %}" href="{{ path('home_page') }}">{{ 'navigation.home'|trans }}</a>
+                    <a class="nav-link {% if app.current_route == 'home_page' %}active{% endif %}" href="{{ path('home_page') }}">{{ 'navigation.home' | trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if app.current_route == 'about' %}active{% endif  %}" href="{{ path('about') }}">{{ 'navigation.about'|trans }}</a>
+                    <a class="nav-link {% if app.current_route == 'about' %}active{% endif  %}" href="{{ path('about') }}">{{ 'navigation.about' | trans }}</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {% if app.current_route == 'view_all_forecasts' %} active {% endif %}" href="{{ path('view_all_forecasts') }}">{{ 'navigation.forecast'|trans }}</a>
+                    <a class="nav-link {% if app.current_route == 'view_all_locations' %} active {% endif %}" href="{{ path('view_all_locations') }}">{{ 'navigation.locations' | trans }}</a>
+                </li>
+                {% if is_granted(constant('\\App\\Entity\\User::ROLE_ADMIN')) %}
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="adminDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            {{ 'navigation.administrative_actions' | trans }}
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="adminDropdown">
+                            <li>
+                                <a class="dropdown-item" {% if app.current_route == 'create_location' %} active {% endif %}" href="{{ path('create_location') }}">{{ 'navigation.create_location' | trans }}</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" {% if app.current_route == 'create_forecast' %} active {% endif %}" href="{{ path('create_forecast') }}">{{ 'navigation.create_forecast' | trans }}</a>
+                            </li>
+                        </ul>
+                    </li>
+                {% endif %}
+                <li class="nav-item ms-auto">
+                    {% if is_granted(constant('\\App\\Entity\\User::ROLE_ADMIN')) %}
+                        <a class="nav-link" href="/logout">{{ 'logout' | trans }}</a>
+                    {% else %}
+                        <a class="nav-link" href="{{ path('app_login') }}">{{ 'login' | trans }}</a>
+                    {% endif %}
                 </li>
             </ul>
         </div>
