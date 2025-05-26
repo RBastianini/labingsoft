@@ -98,7 +98,7 @@ $ vendor/bin/phpstan analyse
 Abbiamo quindi installato twig
 ```shell
 # Dall'interno del container
-$ composer install twig
+$ composer require twig
 ```
 e notato come alcuni pacchetti abbiano un nome composto da due parti separate da uno slash, e altri no. Abbiamo quindi
 accennato a [packagist](https://packagist.org/) e a come Symfony fornisce degli alias per alcuni pacchetti di uso comune
@@ -109,7 +109,7 @@ metodo `render()` di `AbstractController`. Abbiamo visto la sintassi `{% %}` e `
 Abbiamo aggiunto asset-mapper per gestire gli asset frontend
 ```shell
 # Dall'interno del container
-$ composer install asset-mapper
+$ composer require asset-mapper
 ```
 e utilizzato lo stesso per aggiungere bootstrap ai template
 ```shell
