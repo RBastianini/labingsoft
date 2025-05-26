@@ -1,3 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'layout.html.twig' %}
 
-{% block title %} Benvenuto | {{ parent() }} {% endblock %}
+{% block title %} {{ 'welcome' | trans }} | {{ parent() }} {% endblock %}
+
+{% block content %}
+    {{ 'welcome_page.greeting_text' | trans }}
+{% endblock %}

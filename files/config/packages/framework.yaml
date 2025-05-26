@@ -22,3 +22,7 @@ when@test:
         test: true
         session:
             storage_factory_id: session.storage.factory.mock_file
+        # we don't want to use the translator during testing, so we don't have to update tests when the translation
+        # text changes, but only when the translation key changes (which is less frequent)
+        translator:
+            enabled: false
