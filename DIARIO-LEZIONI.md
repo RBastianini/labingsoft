@@ -189,7 +189,7 @@ ed eseguito (dopo qualche piccola modifica) la nostra prima migrazione tramite D
 
 ```shell
 # Dall'interno del container
-$ bin/console doctrine:schema:diff
+$ bin/console doctrine:migrations:diff
 $ bin/console doctrine:migrations:migrate
 ```
 
